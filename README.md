@@ -1,1 +1,1 @@
-# react-redux
+# Курс по JavaScript. React + Redux 
