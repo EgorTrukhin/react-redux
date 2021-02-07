@@ -5,7 +5,7 @@ import './todo-list.css';
 
 // деструктуризация входного параметра с набором свойств,
 // в данном случае свойство todos (массив)
-const TodoList = ( { todos } ) => {
+const TodoList = ( { todos, onDeleted, onToggleDone, onToggleImportant } ) => {
 
 // спред-оператор '...item'
   const elements = todos.map(
@@ -14,7 +14,11 @@ const TodoList = ( { todos } ) => {
 
       return (
         <li key={ id } className="list-group-item">
-          <TodoListItem { ... itempProps } />
+          <TodoListItem
+          onDeleted = { () => onDeleted(id) }
+          onToggleDone = { () => onToggleDone(id) }
+          onToggleImportant = { () => onToggleImportant(id) }
+          { ... itempProps } />
         </li>
       );
     }

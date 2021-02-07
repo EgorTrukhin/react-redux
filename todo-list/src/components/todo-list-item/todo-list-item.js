@@ -2,33 +2,45 @@ import React from 'react';
 
 import './todo-list-item.css';
 
-// деструктуризация входного параметра с набором свойств,
-// в данном случае свойство lable и important
-const TodoListItem = ( { label, important = false } ) => {
+const TodoListItem = ({
+        label,
+        onDeleted,
+        onToggleDone,
+        onToggleImportant,
+        done,
+        important
+      }) => {
+        
+  let classNames_TodoListItem = "todo-list-item";
 
-  const style = {
-    color: important ? 'steelblue' : 'black',
-    fontWeight: important ? 'bold' : 'normal'
+  if ( done ) {
+    classNames_TodoListItem += " done";
+  };
+
+  if ( important ) {
+    classNames_TodoListItem += " important"
   };
 
   return (
-    <span className="todo-list-item">
+    <span className={ classNames_TodoListItem }>
       <span
         className="todo-list-item-label"
-        style={ style }>
+        onClick={ onToggleDone }>
           { label }
       </span>
 
       <span className="float-right">
         <button
           type="button"
-          className="btn btn btn-outline-success btn-sm">
+          className="btn btn btn-outline-success btn-sm"
+          onClick= { onToggleImportant }>
             <i className="fa fa-star"></i>
         </button>
 
         <button
           type="button"
-          className="btn btn btn-outline-danger btn-sm">
+          className="btn btn btn-outline-danger btn-sm"
+          onClick= { onDeleted }>
             <i className="fa fa-trash-o"></i>
         </button>
       </span>
