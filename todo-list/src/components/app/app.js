@@ -44,8 +44,8 @@ export default class App extends React.Component {
       });
     };
 
-    this.addItem = () => {
-      const item = this.createItem('SukaBlyat');
+    this.addItem = (label) => {
+      const item = this.createItem(label);
 
       this.setState(( state ) => {
         const items = [
@@ -83,6 +83,23 @@ export default class App extends React.Component {
         return { items };
       });
     };
+
+    this.onSearch = (text) => {
+      this.setState(( state ) => {
+        let items = [];
+        if (text.length == 0) {
+          return { items };
+        };
+
+        items = state.items
+                    .filter(
+                      (item) => item.label.toLowerCase()
+                                .includes(text.toLowerCase())
+                    );
+
+        return { items };
+      });
+    }
   };
 
   render() {
@@ -97,7 +114,7 @@ export default class App extends React.Component {
         <AppHeader todo={ todoCount } done={ doneCount }/>
 
         <div className="top-panel d-flex">
-          <SearchPanel/>
+          <SearchPanel onSearch={ this.onSearch }/>
           <ItemStatusFilter/>
         </div>
 
