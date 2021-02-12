@@ -20,7 +20,9 @@ export default class App extends React.Component {
         {label: 'Build My First React App', done: true, important: false, id: 1},
         {label: 'Complete React Course', done: false, important: true, id: 2},
         {label: 'Make Awesome React App', done: false, important: false, id: 3}
-      ]
+      ],
+      search: '',
+      filter: 'all'
     };
 
     this.createItem = (label) => {
@@ -84,27 +86,39 @@ export default class App extends React.Component {
       });
     };
 
-    this.onSearch = (text) => {
-      this.setState(( state ) => {
-        let items = [];
-        if (text.length == 0) {
-          return { items };
-        };
+    this.onSearch = (search) => {
+      this.setState({ search });
+    };
 
-        items = state.items
-                    .filter(
-                      (item) => item.label.toLowerCase()
-                                .includes(text.toLowerCase())
-                    );
+    this.onFilter = (filter) => {
+      this.setState({ filter });
+    };
 
-        return { items };
-      });
+    this.search = (items, search) => {
+      if (search.length == 0) {
+        return items;
+      }
+
+      return items.filter((item) =>
+        item.label.toLowerCase().indexOf(search.toLowerCase()) > -1
+      );
+    }
+
+    this.filter = (items, filter) => {
+      if (filter == 'all') {
+        return items;
+      } else if (filter == 'active') {
+        return items.filter((item) => !item.done)
+      } else {
+        return items.filter((item) => item.done)
+      }
     }
   };
 
   render() {
-    const { items } = this.state;
+    const { items, search, filter  } = this.state;
 
+    const visibleItems = this.filter(this.search(items, search), filter);
     const doneCount = items.filter((item) => item.done).length;
     const todoCount = items.length - doneCount;
 
@@ -115,10 +129,12 @@ export default class App extends React.Component {
 
         <div className="top-panel d-flex">
           <SearchPanel onSearch={ this.onSearch }/>
-          <ItemStatusFilter/>
+          <ItemStatusFilter
+              filter={ filter }
+              onFilter={ this.onFilter } />
         </div>
 
-        <TodoList todos={ items }
+        <TodoList todos={ visibleItems }
         onDeleted={ this.deleteItem }
         onToggleDone={ this.onToggleDone }
         onToggleImportant={ this.onToggleImportant }/>
