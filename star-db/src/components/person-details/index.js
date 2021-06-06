@@ -1,3 +1,3 @@
-import PersonDetails from './app.js';
+import PersonDetails from './person-details.js';
 
 export default PersonDetails;

@@ -1,0 +1,25 @@
+.stardb-app {
+    height: 100%;
+}
+
+.section {
+    width: 100%;
+    background-color: #073642;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.items-section-wrapper {
+    justify-content: space-between;
+}
+
+.items-section-wrapper .section{
+    width: 48%;
+}

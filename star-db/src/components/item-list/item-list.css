@@ -1,0 +1,17 @@
+.item-list {
+    padding: 0;
+}
+
+.item-list .list-group-item {
+    cursor: pointer;
+    border: 1px solid rgba(40, 230, 255, 0.075);
+}
+
+.list-group-item+.list-group-item {
+    border-top-width: 0;
+}
+  
+.item-list .list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.075);
+}
+

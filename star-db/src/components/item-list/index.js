@@ -1,3 +1,3 @@
-import ItemList from './app.js';
+import ItemList from './item-list.js';
 
 export default ItemList;
